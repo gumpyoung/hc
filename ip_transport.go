@@ -9,15 +9,15 @@ import (
 	_ "time"
 
 	"github.com/brutella/dnssd"
-	"github.com/brutella/hc/accessory"
-	"github.com/brutella/hc/characteristic"
-	"github.com/brutella/hc/db"
-	"github.com/brutella/hc/event"
-	"github.com/brutella/hc/hap"
-	"github.com/brutella/hc/hap/http"
-	"github.com/brutella/hc/log"
-	"github.com/brutella/hc/util"
 	"github.com/gosexy/to"
+	"github.com/gumpyoung/hc/accessory"
+	"github.com/gumpyoung/hc/characteristic"
+	"github.com/gumpyoung/hc/db"
+	"github.com/gumpyoung/hc/event"
+	"github.com/gumpyoung/hc/hap"
+	"github.com/gumpyoung/hc/hap/http"
+	"github.com/gumpyoung/hc/log"
+	"github.com/gumpyoung/hc/util"
 )
 
 type ipTransport struct {

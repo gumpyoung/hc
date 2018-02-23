@@ -2,7 +2,7 @@
 package service
 
 import (
-	"github.com/brutella/hc/characteristic"
+	"github.com/gumpyoung/hc/characteristic"
 )
 
 const TypeThermostat = "4A"

@@ -7,8 +7,8 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/brutella/hc/gen"
-	"github.com/brutella/hc/gen/swift"
+	"github.com/gumpyoung/hc/gen"
+	"github.com/gumpyoung/hc/gen/swift"
 	"io/ioutil"
 	"log"
 	"os"

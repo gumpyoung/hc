@@ -6,9 +6,9 @@ import (
 	"net"
 	"reflect"
 
-	"github.com/brutella/hc/log"
-	"github.com/brutella/hc/util"
 	"github.com/gosexy/to"
+	"github.com/gumpyoung/hc/log"
+	"github.com/gumpyoung/hc/util"
 )
 
 // Config provides  basic cfguration for an IP transport

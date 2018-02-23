@@ -2,10 +2,11 @@ package hap
 
 import (
 	"bytes"
-	"github.com/brutella/hc/crypto"
-	"github.com/brutella/hc/log"
 	"net"
 	"time"
+
+	"github.com/gumpyoung/hc/crypto"
+	"github.com/gumpyoung/hc/log"
 
 	"bufio"
 	"io"

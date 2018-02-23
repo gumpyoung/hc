@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/brutella/hc"
-	"github.com/brutella/hc/accessory"
-	"github.com/brutella/hc/log"
+	"github.com/gumpyoung/hc/accessory"
+	"github.com/gumpyoung/hc/log"
 
 	"time"
 )

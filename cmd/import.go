@@ -5,13 +5,13 @@
 //
 // The metadata file is created by running the following command on OS X
 //
-//     plutil -convert json -r -o $GOPATH/src/github.com/brutella/hc/gen/metadata.json /Applications/HomeKit\ Accessory\ Simulator.app/Contents/Frameworks/HAPAccessoryKit.framework/Versions/A/Resources/default.metadata.plist
+//     plutil -convert json -r -o $GOPATH/src/github.com/gumpyoung/hc/gen/metadata.json /Applications/HomeKit\ Accessory\ Simulator.app/Contents/Frameworks/HAPAccessoryKit.framework/Versions/A/Resources/default.metadata.plist
 package main
 
 import (
 	"encoding/json"
-	"github.com/brutella/hc/gen"
-	"github.com/brutella/hc/gen/golang"
+	"github.com/gumpyoung/hc/gen"
+	"github.com/gumpyoung/hc/gen/golang"
 	"io/ioutil"
 	"log"
 	"os"

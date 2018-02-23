@@ -1,11 +1,11 @@
 package pair
 
 import (
-	"github.com/brutella/hc/crypto"
-	"github.com/brutella/hc/crypto/chacha20poly1305"
-	"github.com/brutella/hc/db"
-	"github.com/brutella/hc/hap"
-	"github.com/brutella/hc/util"
+	"github.com/gumpyoung/hc/crypto"
+	"github.com/gumpyoung/hc/crypto/chacha20poly1305"
+	"github.com/gumpyoung/hc/db"
+	"github.com/gumpyoung/hc/hap"
+	"github.com/gumpyoung/hc/util"
 
 	"bytes"
 	"encoding/hex"

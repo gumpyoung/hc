@@ -3,7 +3,7 @@ package hc
 import (
 	"context"
 	"github.com/brutella/dnssd"
-	"github.com/brutella/hc/log"
+	"github.com/gumpyoung/hc/log"
 	"net"
 	"strings"
 )

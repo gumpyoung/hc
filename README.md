@@ -54,7 +54,7 @@ package main
 import (
     "log"
     "github.com/brutella/hc"
-    "github.com/brutella/hc/accessory"
+    "github.com/gumpyoung/hc/accessory"
 )
 
 func main() {

@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/brutella/hc/db"
-	"github.com/brutella/hc/hap"
-	"github.com/brutella/hc/hap/pair"
+	"github.com/gumpyoung/hc/db"
+	"github.com/gumpyoung/hc/hap"
+	"github.com/gumpyoung/hc/hap/pair"
 	"io"
 	"log"
 	"net/http"
