@@ -2,11 +2,17 @@ package main
 
 import (
 	"fmt"
+<<<<<<< HEAD
 	"github.com/gumpyoung/hc/db"
 	"github.com/gumpyoung/hc/hap"
 	"github.com/gumpyoung/hc/hap/pair"
+=======
+	"github.com/brutella/hc/db"
+	"github.com/brutella/hc/hap"
+	"github.com/brutella/hc/hap/pair"
+	"github.com/brutella/hc/log"
+>>>>>>> e301c8e55cb063ac61007bd632f9bda2d700557e
 	"io"
-	"log"
 	"net/http"
 )
 
@@ -69,10 +75,10 @@ func main() {
 	}
 
 	if request != nil {
-		log.Println(request)
+		log.Info.Println(request)
 	}
 
-	log.Println("*** Pairing done ***")
+	log.Info.Println("*** Pairing done ***")
 
 	verify := pair.NewVerifyClientController(c, database)
 
@@ -102,8 +108,8 @@ func main() {
 	}
 
 	if last_request != nil {
-		log.Println(last_request)
+		log.Info.Println(last_request)
 	}
 
-	log.Println("*** Key Verification done ***")
+	log.Info.Println("*** Key Verification done ***")
 }

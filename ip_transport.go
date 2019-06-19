@@ -3,10 +3,11 @@ package hc
 import (
 	"bytes"
 	"context"
+	"image"
 	"io/ioutil"
 	"net"
+	"strings"
 	"sync"
-	_ "time"
 
 	"github.com/brutella/dnssd"
 	"github.com/gosexy/to"
@@ -15,17 +16,19 @@ import (
 	"github.com/gumpyoung/hc/db"
 	"github.com/gumpyoung/hc/event"
 	"github.com/gumpyoung/hc/hap"
+	"github.com/gumpyoung/hc/hap/endpoint"
 	"github.com/gumpyoung/hc/hap/http"
 	"github.com/gumpyoung/hc/log"
 	"github.com/gumpyoung/hc/util"
 )
 
 type ipTransport struct {
+	CameraSnapshotReq func(width, height uint) (*image.Image, error)
+
 	config  *Config
 	context hap.Context
-	server  http.Server
+	server  *http.Server
 	mutex   *sync.Mutex
-	mdns    *MDNSService
 
 	storage  util.Storage
 	database db.Database
@@ -61,7 +64,7 @@ type ipTransport struct {
 // The transport is secured with an 8-digit pin, which must be entered
 // by an iOS client to successfully pair with the accessory. If the
 // provided transport config does not specify any pin, 00102003 is used.
-func NewIPTransport(config Config, a *accessory.Accessory, as ...*accessory.Accessory) (Transport, error) {
+func NewIPTransport(config Config, a *accessory.Accessory, as ...*accessory.Accessory) (*ipTransport, error) {
 	// Find transport name which is visible in mDNS
 	name := a.Info.Name.GetValue()
 	if len(name) == 0 {
@@ -148,6 +151,10 @@ func (t *ipTransport) Start() {
 	s := http.NewServer(config)
 	t.server = s
 
+	if t.CameraSnapshotReq != nil {
+		t.server.Mux.Handle("/resource", endpoint.NewResource(t.context, t.CameraSnapshotReq))
+	}
+
 	// Publish server port which might be different then `t.config.Port`
 	t.config.servePort = int(to.Int64(s.Port()))
 
@@ -175,7 +182,7 @@ func (t *ipTransport) Start() {
 	// }()
 
 	// Publish accessory ip
-	log.Info.Printf("Accessory address is %s:%s\n", t.config.IP, s.Port())
+	log.Info.Printf("Listening on port %s\n", s.Port())
 
 	serverCtx, serverCancel := context.WithCancel(t.ctx)
 	defer serverCancel()
@@ -278,4 +285,33 @@ func (t *ipTransport) Handle(ev interface{}) {
 	default:
 		break
 	}
+}
+
+func newService(config *Config) dnssd.Service {
+	// 2016-03-14(brutella): Replace whitespaces (" ") from service name
+	// with underscores ("_")to fix invalid http host header field value
+	// produces by iOS.
+	//
+	// [Radar] http://openradar.appspot.com/radar?id=4931940373233664
+	stripped := strings.Replace(config.name, " ", "_", -1)
+
+	var ips []net.IP
+	if ip := net.ParseIP(config.IP); ip != nil {
+		ips = append(ips, ip)
+	}
+
+	dnsCfg := dnssd.Config{
+		Name:   stripped,
+		Type:   "_hap._tcp",
+		Domain: "local",
+		Text:   config.txtRecords(),
+		IPs:    ips,
+		Port:   config.servePort,
+	}
+	service, err := dnssd.NewService(dnsCfg)
+	if err != nil {
+		log.Info.Fatal(err)
+	}
+
+	return service
 }
